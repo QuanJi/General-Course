@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/skin_/nav.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+<title></title>
+</head>
+
+<body>
+<div id="container">
+	<div id="bd">
+    	<div class="sidebar">
+        	<div class="sidebar-bg"></div>
+            <i class="sidebar-hide"></i>
+            <!--左侧导航-->
+            <ul class="nav" id="myNav">
+            </ul>
+
+        </div>
+        <div class="main">
+
+            <!--头部-->
+        	<div class="title">
+                <i class="sidebar-show"></i>
+                <ul class="tab ue-clear">
+                   
+                </ul>
+                <i class="tab-more"></i>
+                <i class="tab-close"></i>
+            </div>
+
+            <!--主体内容部分-->
+            <div class="content">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="more-bab-list">
+	<ul></ul>
+    <div class="opt-panel-ml"></div>
+    <div class="opt-panel-mr"></div>
+    <div class="opt-panel-bc"></div>
+    <div class="opt-panel-br"></div>
+    <div class="opt-panel-bl"></div>
+</div>
+</body>
+<script type="text/javascript" src="js/nav.js"></script>
+<script type="text/javascript" src="js/Menu.js"></script>
+<script type="text/javascript" src="js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript">
+
+    var menu = new Menu({
+        defaultSelect: $('.nav').find('li[data-id="2"]')
+    });
+
+	// 左侧树结构加载
+	var setting = {};
+
+    //截取网址
+   // var b =GetQueryString ("id");
+    var reg = new RegExp("(^|&)"+ "id" +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    var id = decodeURI(r[2]);
+
+    //访问数据
+    var ajax = new XMLHttpRequest();
+    ajax.open('post', '../NavByPermission?id='+id)
+    ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            var result = JSON.parse(ajax.responseText);
+            console.log(result);
+
+            //初始化导航栏
+            var html = "";
+            var data_id=0;
+            for(var i=0; i < result.length; i++){
+
+                if(i==0){
+                    html +="<li class='nav-li current'>";
+                }else{
+                    html +="<li class='nav-li '>";
+                }
+
+                html +="<a href='javascript:;' class='ue-clear'>";
+                html +="<i class=\"nav-ivon\"></i>";
+                html +=" <span class=\"nav-text\">"+result[i].codeName+"</span>";
+                html +="</a>";
+
+                for(var j=0; j < result[i].codeTables.length; j++){
+                    data_id ++;
+                    html += "<ul class='subnav'>";
+                    if(i==0 && j==0){
+                        html += "<li class='subnav-li current' href='"+result[i].codeTables[j].url+"' data-id='"+data_id+"'>";
+                    }else{
+                        html += "<li class='subnav-li' href='"+result[i].codeTables[j].url+"' data-id='"+data_id+"'>";
+                    }
+                    html += "<a href='javascript:;' class='ue-clear'>";
+                    html += "<i class='subnav-icon'></i>";
+                    html += "<span class='subnav-text'>"+result[i].codeTables[j].codeName+"</span>";
+                    html += "</a></li></ul>";
+                }
+                html +="</li>";
+                data_id ++;
+            }
+            document.getElementById("myNav").innerHTML = html;
+
+        }
+    };
+    ajax.send();
+
+	/*左侧导航的隐藏与显示*/
+	$(document).click(function(e) {
+		if(!$(e.target).is('.tab-more')){
+			 $('.tab-more').removeClass('active');
+			 $('.more-bab-list').hide();
+		}
+    });
+
+
+</script>
+</html>
