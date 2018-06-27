@@ -9,8 +9,27 @@ import java.util.List;
 
 public class CloumnService {
 
+    public static JSONArray getIt(String searchKey,Integer pageNum,Integer parentId) throws Exception{
+        String sql = "";
+        if(parentId == 0){
+            sql += "select id ,column_name, parent_id from `column` where parent_id is null ";
+            sql += " and column_name like '"+searchKey+"%'  ";
+            sql += "limit 0,10";
+            //System.out.println("查询："+sql);
+        } else {
+            sql += "select id ,column_name, parent_id from `column` where parent_id ="+parentId;
+            //sql += "  and column_name ";
+            //System.out.println("子查询："+sql);
+        }
+
+        JSONArray json =JSONArray.fromObject(ColumnDAO.getCloumn(sql)) ;
+
+        return json;
+
+    }
+
     public static JSONArray getColumnInfo()throws Exception{
-        String sql = "select id, column_name, parent_id from column";
+        String sql = "select id, column_name, parent_id from `column`";
 
         List<ColumnTable> list = ColumnDAO.getCloumn(sql);
 
@@ -43,5 +62,17 @@ public class CloumnService {
 
         //转换为json
         return JSONArray.fromObject(otherList);
+    }
+
+    //按条件得到数据条数
+    public static Integer getAllDataWithCondition(String key,Integer parentId) throws Exception{
+        String sql = "";
+        if(parentId == 0){
+            sql = "select count(*) from `column` where column_name like '"+key+"%' and parent_id is null";
+        }else {
+            sql = "select count(*) from `column` where column_name like '"+key+"%' and parent_id="+parentId;
+        }
+        System.out.println("数量"+sql);
+        return ColumnDAO.getTotal(sql);
     }
 }

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../commonPart/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../commonPart/css/WdatePicker.css" />
+    <link rel="stylesheet" type="text/css" href="../commonPart/css/skin_/table.css" />
+    <link rel="stylesheet" type="text/css" href="../commonPart/css/jquery.grid.css" />
+    <link rel="stylesheet" type="text/css" href="columnCSS.css">
+    <link rel="stylesheet" type="text/css" href="../commonPart/css/bootstrap.min.css">
+</head>
+
+<body>
+<div id="container">
+    <div id="hd"></div>
+    <div id="bd">
+        <div id="main">
+            <div class="search-box ue-clear">
+                <div class="search-area">
+                    <div class="kv-item ue-clear">
+                        <label>栏目名称：</label>
+                        <div class="kv-item-content ue-clear">
+
+                            <span class="">
+                            	<input type="text" placeholder="请输入栏目名称" id="inputSearchKey"/>
+                                <span class="division"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="search-button">
+                    <input class="button" type="button" value="搜索一下" onclick="searchBy()" />
+                </div>
+            </div>
+
+            <div class="table">
+                <div class="opt ue-clear">
+                	<span class="sortarea">
+                    	<span class="sort">
+                        	<label>排序：</label>
+                            <span class="name">
+                            	<i class="icon"></i>
+                                <span class="text">名称</span>
+                            </span>
+                        </span>
+
+                        <i class="list"></i>
+                        <i class="card"></i>
+                    </span>
+                    <span class="optarea">
+                        <a href="javascript:;" class="add">
+                            <i class="icon"></i>
+                            <span class="text">添加</span>
+                        </a>
+                        <a href="javascript:;" class="delete">
+                            <i class="icon"></i>
+                            <span class="text">删除</span>
+                        </a>
+
+
+                    </span>
+                </div>
+
+                <!--数据部分-->
+                <div class="typography">
+                    <div class="datacontainer">
+                        <div class="strap-list">
+                            <ul>
+                                <li id="tables">
+                                    <div class="bs-docs-example">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 10%"><input type="checkbox" name="all" onclick="checkAllbox()"></th>
+                                                <th style="width: 28%;">#</th>
+                                                <th style="width: 50%">栏目名称</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <!--数据部分-->
+                                            <tbody id="allData">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- 页表 -->
+                                    <div class="pageInfo">
+                                        <div id="dataNumTip">
+                                            <!-- 页数提示 js动态嵌入 -->
+                                        </div>
+
+                                        <div class="pageChange">
+
+                                            <input type="button" value="下一页" onclick="nextPage()" class="button" style="float:right;">
+                                            <input type="button" value="上一页" onclick="prePage()" class="button" style="float:right;">
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../commonPart/js/forTableJS.js"></script>
+<script type="text/javascript" src="../commonPart/js/jquery.js"></script>
+<script type="text/javascript" src="../commonPart/js/global.js"></script>
+<script type="text/javascript" src="../commonPart/js/jquery.select.js"></script>
+<script type="text/javascript" src="../commonPart/js/core.js"></script>
+<script type="text/javascript" src="../commonPart/js/jquery.pagination.js"></script>
+<script type="text/javascript" src="../commonPart/js/jquery.grid.js"></script>
+<script type="text/javascript" src="../commonPart/js/WdatePicker.js"></script>
+<script type="text/javascript" src="columnJS.js"></script>
+<!--<script type="text/javascript">
+
+    var head = [{
+        label: '#',
+        width: 400,
+        name: 'id'
+    },{
+        label:'用户名',
+        width: 600,
+        name:'name'
+    }];
+
+    //获取数据
+    var ajax = new XMLHttpRequest();
+    ajax.open('get', '../ColumnServlet?');
+    ajax.setRequestHeader("Content-type","application/json");
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4 && ajax.status == 200){
+            var result = JSON.parse(ajax.responseText);
+            var data = result;
+            console.log(data)
+            document.getElementById("allData").innerHTML = insertData(result);
+        }
+        return;
+    };
+    ajax.send();
+
+</script>-->
+</html>
