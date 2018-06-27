@@ -52,7 +52,6 @@ window.onload = function () {
 
 function getData(Num,parentId) {
     var searchKey = document.getElementById("inputSearchKey").value;
-    console.log(parentId);
     getTotal(searchKey,parentId);
     //获取数据
     var ajax = new XMLHttpRequest();
@@ -94,4 +93,63 @@ function insertData(result){
         }*/
     }
     return html;
+}
+//删除
+function delData() {
+    var id = document.getElementsByName("box");
+    var temp = new Array();
+    for(var i=0 ; i<id.length ;i++){
+        if(id[i].checked == true){
+            temp.push(id[i].value)
+        }
+    }
+    if(temp.length <1 ){
+        //引用sweetAlert插件
+        swal({
+            title: "错误",
+            text: "请至少选择一行数据",
+            type: "error",
+
+        });
+    } else {
+        swal({
+            title: "您确定要删除数据吗",
+            text:"删除后将无法恢复，请谨慎操作！",
+            type:"warning",
+            showCancelButton: true,
+            confirmButtonText: '是的，我要删除！',
+            cancelButtonText: '让我再考虑一下…',
+        }).then(function(isConfirm) {
+            if (isConfirm === true) {
+
+                var ajax = new XMLHttpRequest();
+                ajax.open('post','../DelColumnServlet?value='+temp);
+                ajax.onreadystatechange = function () {
+                    if (ajax.readyState == 4 && ajax.status == 200){
+                        swal(
+                            '删除成功！',
+                            '您已经永久删除了这条数据。',
+                            'success'
+                        );
+                        window.location.reload(true);
+                    }
+                };
+                ajax.send();
+
+            } else if (isConfirm === false) {
+                swal(
+                    '已取消',
+                    '您取消了删除操作！',
+                    'error'
+                )
+            }});
+    }
+
+}
+
+//新增
+function add() {
+
+
+    alert(1);
 }

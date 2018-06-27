@@ -5,8 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
 <link rel="stylesheet" type="text/css" href="../commonPart/css/style.css" />
 <link rel="stylesheet" type="text/css" href="../commonPart/css/skin_/login.css" />
+<link rel="stylesheet" type="text/css" href="../commonPart/sweetalert2.min.css" />
 <script type="text/javascript" src="../commonPart/js/jquery.js"></script>
 <script type="text/javascript" src="../commonPart/js/jquery.select.js"></script>
+<script type="text/javascript" src="../commonPart/sweetalert2.min.js"></script>
 <title>后台管理员登录</title>
 </head>
 
@@ -76,10 +78,21 @@
                     var answer = ajax.responseText ;
 
                     if(ajax.responseText == "false"){
-                        alert("登录失败！！！"+"\n"+"账号或密码错误！！！")
+                        //alert("登录失败！！！"+"\n"+"账号或密码错误！！！");
+                        swal({
+                            title: "错误",
+                            text: "账号或密码错误",
+                            type: "error",
+
+                        });
 
                     } else{
-                        alert("登录成功！！！");
+                        swal({
+                            title: "登陆成功",
+                            text: "欢迎您！",
+                            type: "success",
+                        });
+                        //alert("登录成功！！！");
                         document.location.href = "../commonPart/main.html?id="+answer;
                     }
 

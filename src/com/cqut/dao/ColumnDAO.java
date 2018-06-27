@@ -48,5 +48,14 @@ public class ColumnDAO {
         return SUM;
     }
 
+    //删除数据
+    public static long deleteData(String sql) throws Exception{
+        Connection connection = CommonDAO.getConnection();
+
+        Statement statement = connection.createStatement();
+        long temp = statement.executeUpdate(sql);
+        return temp;
+
+    }
 
 }

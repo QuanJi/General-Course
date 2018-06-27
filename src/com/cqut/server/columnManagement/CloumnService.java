@@ -75,4 +75,18 @@ public class CloumnService {
         System.out.println("数量"+sql);
         return ColumnDAO.getTotal(sql);
     }
+
+    //按id进行删除
+    public static void delIt(int[] id) {
+        for(int i=0;i<id.length;i++){
+            String sql = "delete from `column` where id ="+id[i];
+            try {
+                ColumnDAO.deleteData(sql);
+               // Question.delete(sql);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
