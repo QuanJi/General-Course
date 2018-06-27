@@ -55,7 +55,7 @@ public class LoginServer {
         //对tempList结果进行处理
         List<CodeTable> rsList = new ArrayList<CodeTable>();
         for(int i=0 ; i<tempList.size() ; i++){
-            System.out.println(tempList.get(i).getCodeName()+" "+tempList.get(i).getParent_id()+" "+tempList.get(i).getUrl());
+            //System.out.println(tempList.get(i).getCodeName()+" "+tempList.get(i).getParent_id()+" "+tempList.get(i).getUrl());
             if(tempList.get(i).getParent_id() == 0){
                 rsList.add(tempList.get(i));
             }
