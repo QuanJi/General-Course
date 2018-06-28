@@ -93,13 +93,17 @@
                         });
 
                     } else{
+
                         swal({
-                            title: "登陆成功",
-                            text: "欢迎您！",
+                            title:'登录成功',
+                            text: '欢迎您!',
                             type: "success",
-                        });
-                        //alert("登录成功！！！");
-                        document.location.href = "../commonPart/main.html?id="+answer;
+                            timer:2000,
+                            showConfirmButton: false
+                        }).then(function(){
+                            document.location.href = "../commonPart/main.html?id="+answer;
+                        })
+
                     }
 
                 }
