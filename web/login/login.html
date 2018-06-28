@@ -63,7 +63,13 @@
 	    var userName = $('#userName').val();
 	    var password = $('#password').val();
 	    if(userName == "" || password == ""){
-	        alert("用户名或密码不能为空！！！");
+            swal({
+                title: "错误",
+                text: "用户名或密码不能为空",
+                type: "error",
+
+            });
+	        //alert("用户名或密码不能为空！！！");
         } else {
             var info = new Array();
             info[0] = userName;
